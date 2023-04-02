@@ -38,65 +38,68 @@
     </div>
   </div>
   <!-- end form -->
-  <list :books="books" @emitDone="done" @emitDestroy="destroy"/>
+  <list :books="list" @emitDone="done" @emitDestroy="destroy"/>
 </template>
 
 <script>
+import { ref, reactive, toRefs, onMounted } from 'vue'
 import List from './components/List.vue'
 
 export default {
     components: { List },
-    data() {
-        return {
-            judul: "",
-            penulis: "",
-            tahun: "",
-            isDone: false,
-            books: []
-        };
-    },
-    mounted() {
-      const items = localStorage.getItem('BOOKSHELF_APPS')
-      this.books = items ? JSON.parse(items) : []
-    },
-    methods: {
-        add() {
-            this.books.unshift({
-                judul: this.judul,
-                penulis: this.penulis,
-                tahun: this.tahun,
-                isDone: this.isDone,
-            });
-            this.judul = "";
-            this.penulis = "";
-            this.tahun = "";
-            this.isDone = false;
-            console.log(this.books);
-            this.saveToLocalStorage()
+    setup() {
+      let judul = ref("")
+      let penulis = ref("")
+      let tahun = ref("")
+      let isDone = ref(false)
+      let books = reactive({
+        list: []
+      })
 
-        },
-        done(bookIndex) {
-          this.books = this.books.filter((item, index) => {
-            if (index == bookIndex) {
-              item.isDone = !item.isDone
-            }
+      onMounted(() => {
+        const items = localStorage.getItem('BOOKSHELF_APPS')
+        books.list = items ? JSON.parse(items) : []
+      })
 
+      const add = () => {
+        books.list.unshift({
+          judul: judul.value,
+          penulis: penulis.value,
+          tahun: tahun.value,
+          isDone: isDone.value
+        })
+        judul.value = ""
+        penulis.value = ""
+        tahun.value = ""
+        isDone.value = false
+        saveToLocalStorage()
+      }
+
+      const done = (bookIndex) => {
+        books.list = books.list.filter((item, index) => {
+          if (index == bookIndex) {
+            item.isDone = !item.isDone
+          }
+          return item
+        })
+        saveToLocalStorage()
+      }
+
+      const destroy = (bookIndex) => {
+        books.list = books.list.filter((item, index) => {
+          if (index != bookIndex) {
             return item
-          })
-          this.saveToLocalStorage()
+          }
+        })
+        saveToLocalStorage()
+      }
 
-        },
-        destroy(bookIndex) {
-          this.books = this.books.filter((item, index) => {
-            if (index != bookIndex) {
-              return item
-            }
-          })
-          this.saveToLocalStorage()
-        },
-        saveToLocalStorage() {
-          localStorage.setItem('BOOKSHELF_APPS', JSON.stringify(this.books))
-        }
-    },
+      const saveToLocalStorage = () => {
+        localStorage.setItem('BOOKSHELF_APPS', JSON.stringify(books.list))
+      }
+
+      return {judul, penulis, tahun, isDone, ...toRefs(books), add, done, destroy, saveToLocalStorage}
+    }
+
 }
 </script>

@@ -27,7 +27,7 @@
   <!--  end list belum dibaca -->
   <!-- list sudah dibaca -->
   <div class="container">
-    <div class="row my-3">
+    <div class="row mt-3">
       <div class="col-md-8 offset-2">
         <div class="card">
           <div class="card-body">
@@ -61,13 +61,17 @@ export default {
         }
     },
     emits: ["emitDone", "emitDestroy"],
-    methods: {
-      emitDone(index) {
-        this.$emit('emitDone', index)
-      },
-      emitDestroy(index) {
-        this.$emit('emitDestroy', index)
+    setup(props, {emit}) {
+      const emitDone = (index) => {
+        emit('emitDone', index)
       }
+
+      const emitDestroy = (index) => {
+        emit('emitDestroy', index)
+      }
+
+      return {emitDone, emitDestroy}
     }
+
 }
 </script>
