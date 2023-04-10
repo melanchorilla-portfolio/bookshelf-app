@@ -1,7 +1,16 @@
-# Vue 3 + Vite
+# Simple Contact App
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Simple bookshelf app built with Vanilla JS and Vue JS
 
-## Recommended IDE Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)
+
+## Tech
+
+[Simple bookshelf app:](https://github.com/melanchorilla-portfolio/bookshelf-app/tree/main) Vanilla JS, Local Storage
+
+[Bookshelf app with Vue JS:](https://github.com/melanchorilla-portfolio/bookshelf-app/tree/vue-option-api) Vue JS Option API, Local Storage
+
+[Bookshelf app with Vue JS:](https://github.com/melanchorilla-portfolio/bookshelf-app/tree/vue-composition-api) Vue JS Composition API, Local Storage
